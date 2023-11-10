@@ -1,0 +1,17 @@
+{
+  "apps": [
+    {
+      "name": "app",
+      "script": "app.js",
+      "instances": 1,
+      "autorestart": false,
+      "watch": false,
+      "time": true,
+      "env": {
+        "NODE_ENV": "development",
+        "DB_PASSWORD":"quantumapp1", 
+        "JWTPRIVATEKEY" :"mysecretkey"
+      }
+    }
+  ]
+}
