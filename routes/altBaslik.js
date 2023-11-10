@@ -17,11 +17,17 @@ router.post("/:id", auth, async (req, res) => {
     if (error) {
         return res.status(400).send(error.details[0].message);
     }
-    const konuBaslik = await konuBaslikModel.findById(req.params.id);
-
-    if (!konuBaslik) {
-        return res.status(404).json({ success: false, message: 'Konu Başlık bulunamadı.' });
+    let konuBaslik;
+    try {
+        konuBaslik = await konuBaslikModel.findById(req.params.id);
+        if (!konuBaslik) {
+            return res.status(404).json({ success: false, message: 'Konu Başlık bulunamadı.' });
+        }
+    } catch (error) {
+        return res.status(500).json({ message: 'Konu Başlığı bulunamadı.' });
     }
+
+
 
     const altBaslik = new altBaslikModel({
         altbaslik: req.body.altbaslik,
@@ -47,6 +53,7 @@ router.post("/", auth, async (req, res) => {
     if (!konuBaslik) {
         return res.status(404).json({ success: false, message: 'Konu Başlık bulunamadı.' });
     }
+
 
     const altBaslik = new altBaslikModel({
         altbaslik: req.body.altbaslik,
